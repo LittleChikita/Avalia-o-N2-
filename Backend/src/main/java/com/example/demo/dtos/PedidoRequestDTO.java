@@ -15,12 +15,12 @@ public class PedidoRequestDTO {
     private String statusPedido;
 
     @NotBlank(message = "Lista de Itens é obrigatoria ")
-    private List<ItemPedido> itens;
+    private List<ItemPedidoRequestDTO> itens;
 
     public PedidoRequestDTO() {
     }
 
-    public PedidoRequestDTO(Integer mesa, String statusPedido, List<ItemPedido> itens) {
+    public PedidoRequestDTO(Integer mesa, String statusPedido, List<ItemPedidoRequestDTO> itens) {
         this.mesa = mesa;
         this.statusPedido = statusPedido;
         this.itens = itens;
@@ -43,11 +43,11 @@ public class PedidoRequestDTO {
     }
 
 
-    public List<ItemPedido> getItens() {
+    public List<ItemPedidoRequestDTO> getItens() {
         return itens;
     }
 
-    public void setItens(List<ItemPedido> itens) {
+    public void setItens(List<ItemPedidoRequestDTO> itens) {
         this.itens = itens;
     }
 }

@@ -34,6 +34,8 @@ public class UsuarioService {
         return UsuarioMapper.toDTO(saved);
     }
 
+
+
     public List<UsuarioResponseDTO> listarTodos() {
         return UsuarioMapper.toDTOList(usuarioRepository.findAll());
     }

@@ -1,12 +1,19 @@
 package com.example.demo.service;
 
+import com.example.demo.dtos.ItemPedidoRequestDTO;
 import com.example.demo.dtos.PedidoRequestDTO;
 import com.example.demo.dtos.PedidoResponseDTO;
 import com.example.demo.mappers.PedidoMapper;
+import com.example.demo.models.entities.ItemPedido;
 import com.example.demo.models.entities.Pedido;
+import com.example.demo.models.entities.Produto;
+import com.example.demo.models.enums.PedidoStatus;
 import com.example.demo.repository.PedidoRepository;
+import com.example.demo.repository.ProdutoRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,17 +21,58 @@ public class PedidoService {
 
     private final PedidoRepository repository;
 
-    public PedidoService(PedidoRepository repository) {
+    private final ProdutoRepository produtoRepository;
+
+    public PedidoService(PedidoRepository repository, ProdutoRepository produtoRepository) {
 
         this.repository = repository;
+        this.produtoRepository = produtoRepository;
     }
 
-    public PedidoResponseDTO salvar(PedidoRequestDTO pedido) {
+    public PedidoResponseDTO salvar(PedidoRequestDTO dto) {
 
-        Pedido pedidoEntity = PedidoMapper.toEntity(pedido);
-        repository.save(pedidoEntity);
+        Pedido pedido = new Pedido();
 
-        return PedidoMapper.toDTO(pedidoEntity);
+        pedido.setMesa(dto.getMesa());
+
+        List<ItemPedido> itens = new ArrayList<>();
+
+        BigDecimal total = BigDecimal.ZERO;
+
+        for(ItemPedidoRequestDTO itemDTO : dto.getItens()) {
+
+            Produto produto = produtoRepository.findById(itemDTO.getProdutoId())
+                    .orElseThrow(() ->
+                            new RuntimeException("Produto não encontrado"));
+
+            ItemPedido item = new ItemPedido();
+
+            item.setProduto(produto);
+
+            item.setQuantidade(itemDTO.getQuantidade());
+
+            BigDecimal subtotal =
+                    produto.getPreco()
+                            .multiply(BigDecimal.valueOf(itemDTO.getQuantidade()));
+
+            item.setSubTotal(subtotal);
+
+            item.setPedido(pedido);
+
+            itens.add(item);
+
+            total = total.add(subtotal);
+        }
+
+        pedido.setStatusPedido(PedidoStatus.valueOf(dto.getStatusPedido()));
+
+        pedido.setItens(itens);
+
+        pedido.setValorTotal(total);
+
+        repository.save(pedido);
+
+        return PedidoMapper.toDTO(pedido);
     }
 
     public List<PedidoResponseDTO> listarTodos() {

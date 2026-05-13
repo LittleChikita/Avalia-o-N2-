@@ -16,7 +16,7 @@ public class PedidoMapper {
         Pedido pedido = new Pedido();
         pedido.setMesa(dto.getMesa());
         pedido.setStatusPedido(PedidoStatus.valueOf(dto.getStatusPedido()));
-        pedido.setItens(dto.getItens());
+        pedido.setItens(ItemPedidoMapper.toEntityList(dto.getItens()));
         return pedido;
     }
 
@@ -28,7 +28,7 @@ public class PedidoMapper {
         pedidoDTO.setStatusPedido(pedido.getStatusPedido().toString());
         pedidoDTO.setDataHora(pedido.getDataHora());
         pedidoDTO.setTotal(pedido.getValorTotal());
-        pedidoDTO.setItens(pedido.getItens());
+        pedidoDTO.setItens(ItemPedidoMapper.toDTOList(pedido.getItens()));
         return pedidoDTO;
     }
 
@@ -38,7 +38,7 @@ public class PedidoMapper {
 
         pedido.setMesa(dto.getMesa());
         pedido.setStatusPedido(PedidoStatus.valueOf(dto.getStatusPedido()));
-        pedido.setItens(dto.getItens());
+        pedido.setItens(ItemPedidoMapper.toEntityList(dto.getItens()));
 
     }
 

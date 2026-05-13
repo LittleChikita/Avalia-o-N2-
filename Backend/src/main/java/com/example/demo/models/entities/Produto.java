@@ -21,7 +21,6 @@ public class Produto {
     @Column(nullable = false, name = "Valor")
     private BigDecimal preco;;
 
-    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private ProdutoCategoria categoria;
 

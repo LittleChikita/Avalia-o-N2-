@@ -12,12 +12,12 @@ public class PedidoResponseDTO {
     private String statusPedido;
     private LocalDateTime dataHora;
     private BigDecimal total;
-    private List<ItemPedido> itens;
+    private List<ItemPedidoResponseDTO> itens;
 
     public PedidoResponseDTO() {
     }
 
-    public PedidoResponseDTO(Long id, Integer mesa, String statusPedido, LocalDateTime dataHora, BigDecimal total, List<ItemPedido> itens) {
+    public PedidoResponseDTO(Long id, Integer mesa, String statusPedido, LocalDateTime dataHora, BigDecimal total, List<ItemPedidoResponseDTO> itens) {
         this.id = id;
         this.mesa = mesa;
         this.statusPedido = statusPedido;
@@ -66,11 +66,11 @@ public class PedidoResponseDTO {
         this.total = total;
     }
 
-    public List<ItemPedido> getItens() {
+    public List<ItemPedidoResponseDTO> getItens() {
         return itens;
     }
 
-    public void setItens(List<ItemPedido> itens) {
+    public void setItens(List<ItemPedidoResponseDTO> itens) {
         this.itens = itens;
     }
 }

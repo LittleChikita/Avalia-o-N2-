@@ -16,7 +16,6 @@ public class Usuario {
     @Column(unique = true, nullable = false, name = "E-mail")
     private String email;
 
-    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     private UsuarioCargo cargo;
 

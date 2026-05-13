@@ -30,17 +30,25 @@ public class ProdutoService {
         return dtos;
     }
 
-    public Produto buscarPorId(Long id) {
+    public ProdutoResponseDTO buscarPorId(Long id) {
+
+        Produto produto = buscarEntidadePorId(id);
+
+        return ProdutoMapper.toDTO(produto);
+    }
+
+    public Produto buscarEntidadePorId(Long id) {
         return repository.findById(id)
                 .orElseThrow(() ->
                         new RuntimeException("Produto não encontrado"));
     }
 
     public ProdutoResponseDTO atualizar(Long id, ProdutoRequestDTO produtoAtualizado) {
-        Produto produto = buscarPorId(id);
-        Produto entity = ProdutoMapper.toEntity(produtoAtualizado);
-        entity = repository.save(entity);
-        return ProdutoMapper.toDTO(entity);
+        Produto produto = buscarEntidadePorId(id);
+
+        ProdutoMapper.updateEntity(produto,produtoAtualizado);
+        produto = repository.save(produto);
+        return ProdutoMapper.toDTO(produto);
     }
 
     public void deletar(Long id) {

@@ -27,6 +27,7 @@ public class UsuarioController {
         return ResponseEntity.created(URI.create("/usuarios/" + criado.getId())).body(criado);
     }
 
+
     // Listar todos
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDTO>> listarTodos() {

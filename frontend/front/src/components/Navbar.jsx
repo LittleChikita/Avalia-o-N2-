@@ -32,8 +32,12 @@ function Navbar() {
                 Pedidos
             </Link>
 
-            <Link to="/usuarios">
+            <Link to="/usuarios/cadastro">
                 Cadastro
+            </Link>
+
+            <Link to="/usuarios">
+                Usuários
             </Link>
 
         </div>

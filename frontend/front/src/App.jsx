@@ -7,6 +7,8 @@ import Navbar from "./components/Navbar.jsx";
 import Carrinho from "./pages/Carrinho.jsx";
 import Pedidos from "./pages/Pedidos.jsx";
 import CadastroUsuario from "./pages/CadastroUsuario.jsx";
+import EditarUsuario from "./pages/EditarUsuario.jsx";
+import Usuarios from "./pages/Usuarios.jsx";
 import {ToastContainer} from "react-toastify";
 
 function App() {
@@ -49,7 +51,19 @@ function App() {
 
                 <Route
                     path="/usuarios"
-                    element={<CadastroUsuario />} />
+                    element={<Usuarios />}
+                />
+
+                <Route
+                    path="/usuarios/cadastro"
+                    element={<CadastroUsuario />}
+                />
+
+                <Route
+                    path="/usuarios/editar/:id"
+                    element={<EditarUsuario />}
+                />
+
 
             </Routes>
 

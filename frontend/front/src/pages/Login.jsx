@@ -1,69 +1,75 @@
 import { useState } from "react";
 import api from "../services/api.js";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
 
-    const [usuario, setUsuario] = useState("");
+    const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
-    async function logar(e) {
+    const navigate = useNavigate();
 
+    async function logar(e) {
         e.preventDefault();
 
         try {
+            const response = await api.post("/auth/login", {
+                email,
+                senha
+            });
 
-            const response =
-                await api.post("/auth/login", {
+            const data = response.data;
 
-                    usuario,
-                    senha
+            localStorage.setItem("token", data.token);
+            localStorage.setItem("role", data.role);
 
-                });
+            toast.success("Login realizado!", {
+                position: "top-right",
+                autoClose: 2000
+            });
 
-            localStorage.setItem(
-                "token",
-                response.data
-            );
-
-            alert("Login realizado!");
+            // 🔥 REDIRECIONAMENTO POR PERFIL
+            setTimeout(() => {
+                if (data.role === "ADMINISTRADOR") {
+                    navigate("/admin");
+                } else {
+                    navigate("/home");
+                }
+            }, 800);
 
         } catch (error) {
-
-            alert("Erro no login");
-
+            toast.error("Erro no login");
         }
     }
 
     return (
-
         <form onSubmit={logar}>
 
             <h1>Login</h1>
 
             <input
+                id="email"
                 type="text"
-                placeholder="Usuário"
-                value={usuario}
-                onChange={(e) =>
-                    setUsuario(e.target.value)
-                }
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
             />
 
             <br /><br />
 
             <input
+                id="senha"
                 type="password"
                 placeholder="Senha"
                 value={senha}
-                onChange={(e) =>
-                    setSenha(e.target.value)
-                }
+                onChange={(e) => setSenha(e.target.value)}
             />
 
             <br /><br />
 
-            <button>
-                Entrar
+            <button id="botaoLogin" type="submit">
+                Login
             </button>
 
         </form>

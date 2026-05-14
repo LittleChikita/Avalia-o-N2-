@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthSecurityController {
-/*
+
     @Autowired
     private AuthSecurityService authService;
 
@@ -27,5 +27,4 @@ public class AuthSecurityController {
         return ResponseEntity.ok(resposta);
     }
 
- */
 }

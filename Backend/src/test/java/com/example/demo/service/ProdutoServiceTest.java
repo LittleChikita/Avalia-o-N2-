@@ -10,42 +10,31 @@ import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 public class ProdutoServiceTest {
 
     @Test
-    void deveSalvarProduto() {
+    void deveFalharQuandoNomeEstiverVazio() {
 
         ProdutoRepository repository = Mockito.mock(ProdutoRepository.class);
-
         ProdutoService service = new ProdutoService(repository);
 
-        Produto produto = new Produto(
-                1L,
-                "Pizza",
-                "Pizza Grande",
-                new BigDecimal("50.00"),
-                ProdutoCategoria.COMIDA,
-                true
-        );
-
-        when(repository.save(Mockito.any(Produto.class)))
-                .thenReturn(produto);
-
         ProdutoRequestDTO dto = new ProdutoRequestDTO();
-
-        dto.setNome("Pizza");
-        dto.setDescricao("Pizza Grande");
+        dto.setNome("");
+        dto.setDescricao("Grande");
         dto.setPreco(new BigDecimal("50.00"));
         dto.setCategoria("COMIDA");
 
-        ProdutoResponseDTO response = service.salvar(dto);
+        IllegalArgumentException ex = assertThrows(
+                IllegalArgumentException.class,
+                () -> service.salvar(dto)
+        );
+        System.out.println("Exceção capturada: " + ex.getMessage());
 
-        assertNotNull(response);
-        assertEquals("Pizza", response.getNome());
-        assertEquals("COMIDA", response.getCategoria());
+        assertEquals("Nome inválido", ex.getMessage());
+
+        System.out.println("Teste finalizado com sucesso");
     }
 }

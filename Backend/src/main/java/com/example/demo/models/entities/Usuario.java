@@ -13,7 +13,7 @@ public class Usuario {
     @Column(nullable = false, name = "Nome")
     private String nome;
 
-    @Column(unique = true, nullable = false, name = "E-mail")
+    @Column(unique = true, nullable = false, name = "email")
     private String email;
 
     @Enumerated(EnumType.STRING)

@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
+import api from "../services/api.js";
 
 function Carrinho() {
 
     const [itens, setItens] = useState([]);
+    const [mesa, setMesa] = useState("");
 
     useEffect(() => {
 
         const carrinho =
+
             JSON.parse(
                 localStorage.getItem("carrinho")
             ) || [];
@@ -15,14 +18,46 @@ function Carrinho() {
 
     }, []);
 
-    function finalizarPedido() {
+    async function finalizarPedido() {
 
-        alert("Pedido realizado!");
+        try {
 
-        localStorage.removeItem("carrinho");
+            const pedido = {
 
-        setItens([]);
+                mesa: Number(mesa),
 
+                statusPedido: "ABERTO",
+
+                itens: itens.map((item) => ({
+
+                    produtoId: item.id,
+
+                    quantidade: 1
+
+                }))
+            };
+
+            console.log(pedido);
+
+            await api.post(
+                "/pedidos",
+                pedido
+            );
+
+            alert("Pedido realizado!");
+
+            localStorage.removeItem("carrinho");
+
+            setItens([]);
+
+            setMesa("");
+
+        } catch (error) {
+
+            console.log(error);
+
+            alert("Erro ao finalizar pedido");
+        }
     }
 
     return (
@@ -38,7 +73,9 @@ function Carrinho() {
 
                         <h3>{item.nome}</h3>
 
-                        <p>R$ {item.preco}</p>
+                        <p>
+                            R$ {item.preco}
+                        </p>
 
                         <hr />
 
@@ -50,11 +87,24 @@ function Carrinho() {
             {
                 itens.length > 0 && (
 
-                    <button
-                        onClick={finalizarPedido}
-                    >
-                        Finalizar Pedido
-                    </button>
+                    <div>
+
+                        <input
+                            type="number"
+                            placeholder="Número da mesa"
+                            value={mesa}
+                            onChange={(e) =>
+                                setMesa(e.target.value)
+                            }
+                        />
+
+                        <button
+                            onClick={finalizarPedido}
+                        >
+                            Finalizar Pedido
+                        </button>
+
+                    </div>
 
                 )
             }

@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "Items Pedidos")
+@Table(name = "item_pedido")
 public class ItemPedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,12 +15,12 @@ public class ItemPedido {
 
     private BigDecimal subTotal;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Pedidos")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "Produtos")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "produto_id")
     private Produto produto;
 
     public ItemPedido() {

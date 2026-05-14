@@ -5,6 +5,9 @@ import Login from "./pages/Login";
 import Admin from "./pages/Admin";
 import Navbar from "./components/Navbar.jsx";
 import Carrinho from "./pages/Carrinho.jsx";
+import Pedidos from "./pages/Pedidos.jsx";
+import CadastroUsuario from "./pages/CadastroUsuario.jsx";
+import {ToastContainer} from "react-toastify";
 
 function App() {
 
@@ -13,6 +16,9 @@ function App() {
         <BrowserRouter>
 
             <Navbar />
+
+            <ToastContainer />
+
 
             <Routes>
 
@@ -35,6 +41,15 @@ function App() {
                     path="/carrinho"
                     element={<Carrinho />}
                 />
+
+                <Route
+                    path="/pedidos"
+                    element={<Pedidos />}
+                />
+
+                <Route
+                    path="/usuarios"
+                    element={<CadastroUsuario />} />
 
             </Routes>
 

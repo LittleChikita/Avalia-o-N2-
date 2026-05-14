@@ -7,6 +7,7 @@ function Admin() {
     const [descricao, setDescricao] = useState("");
     const [preco, setPreco] = useState("");
     const [foto, setFoto] = useState("");
+    const [categoria, setCategoria] = useState("");
 
     const [pratos, setPratos] = useState([]);
 
@@ -43,7 +44,8 @@ function Admin() {
                 nome,
                 descricao,
                 preco,
-                foto
+                foto,
+                categoria,
 
             });
 
@@ -53,6 +55,7 @@ function Admin() {
             setDescricao("");
             setPreco("");
             setFoto("");
+            setCategoria("");
 
             buscarPratos();
 
@@ -131,6 +134,33 @@ function Admin() {
                         setFoto(e.target.value)
                     }
                 />
+
+                <br /><br />
+
+                <select
+                    value={categoria}
+                    onChange={(e) =>
+                        setCategoria(e.target.value)
+                    }
+                >
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    <option value="COMIDA">
+                        Comida
+                    </option>
+
+                    <option value="BEBIDA">
+                        Bebida
+                    </option>
+
+                    <option value="SOBREMESA">
+                        Sobremesa
+                    </option>
+
+                </select>
 
                 <br /><br />
 

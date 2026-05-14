@@ -19,12 +19,12 @@ public class Pedido {
     private Integer mesa;
 
     @Enumerated(EnumType.STRING)
-    private PedidoStatus StatusPedido;
+    private PedidoStatus statusPedido;
 
-    @Column(name = "Data e Hora")
+    @Column(name = "Data_e_Hora")
     private LocalDateTime dataHora = LocalDateTime.now();
 
-    @Column(nullable = false, name = "Valor Total")
+    @Column(nullable = false, name = "Valor_Total")
     private BigDecimal valorTotal;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
@@ -36,7 +36,7 @@ public class Pedido {
     public Pedido(Long id, Integer mesa, PedidoStatus statusPedido, LocalDateTime dataHora, BigDecimal valorTotal) {
         this.id = id;
         this.mesa = mesa;
-        StatusPedido = statusPedido;
+        this.statusPedido = statusPedido;
         this.dataHora = dataHora;
         this.valorTotal = valorTotal;
     }
@@ -58,11 +58,11 @@ public class Pedido {
     }
 
     public PedidoStatus getStatusPedido() {
-        return StatusPedido;
+        return statusPedido;
     }
 
     public void setStatusPedido(PedidoStatus statusPedido) {
-        StatusPedido = statusPedido;
+        this.statusPedido = statusPedido;
     }
 
     public LocalDateTime getDataHora() {

@@ -17,7 +17,7 @@ public class LoginE2ETest {
         try {
             driver.get("http://localhost:4200/login");
 
-            driver.findElement(By.id("email")).sendKeys("admin@email.com");
+            driver.findElement(By.id("email")).sendKeys("joao@test.com");
             driver.findElement(By.id("senha")).sendKeys("123456");
             driver.findElement(By.id("botaoLogin")).click();
 

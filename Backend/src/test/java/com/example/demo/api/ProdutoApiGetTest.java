@@ -23,6 +23,7 @@ public class ProdutoApiGetTest {
                 .get("/produtos")
                 .then()
                 .statusCode(200)
-                .body(notNullValue());
+                .log().body()
+                .body("$", not(empty()));
     }
 }

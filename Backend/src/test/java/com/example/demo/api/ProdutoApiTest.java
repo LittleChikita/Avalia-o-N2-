@@ -19,13 +19,13 @@ public class ProdutoApiTest {
     void deveCriarProduto() {
 
         String json = """
-        {
-            "nome": "Pizza",
-            "descricao": "Grande",
-            "preco": 50.0,
-            "categoria": "COMIDA"
-        }
-        """;
+    {
+        "nome": "Pizza",
+        "descricao": "Grande",
+        "preco": 50.0,
+        "categoria": "COMIDA"
+    }
+    """;
 
         given()
                 .contentType("application/json")
@@ -34,6 +34,8 @@ public class ProdutoApiTest {
                 .post("/produtos")
                 .then()
                 .statusCode(anyOf(is(200), is(201)))
+                .log().body()
+                .body("id", notNullValue())
                 .body("nome", equalTo("Pizza"));
     }
 }

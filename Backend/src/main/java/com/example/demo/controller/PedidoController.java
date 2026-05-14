@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/Pedidos")
+@RequestMapping("/pedidos")
 @CrossOrigin(origins = "http://localhost:4200")
 public class PedidoController {
 
@@ -31,6 +31,14 @@ public class PedidoController {
     @GetMapping("/{id}")
     public PedidoResponseDTO buscarPorId(@PathVariable Long id) {
         return service.buscarPorId(id);
+    }
+
+    @PutMapping("/{id}")
+    public PedidoResponseDTO atualizarStatus(
+            @PathVariable Long id,
+            @RequestBody PedidoRequestDTO pedido) {
+
+        return service.atualizar(id, pedido);
     }
 
     @DeleteMapping("/{id}")

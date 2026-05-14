@@ -20,6 +20,15 @@ public class ProdutoService {
     }
 
     public ProdutoResponseDTO salvar(ProdutoRequestDTO produto) {
+
+        if (produto.getNome() == null || produto.getNome().isBlank()) {
+            throw new IllegalArgumentException("Nome inválido");
+        }
+
+        if (produto.getPreco() == null || produto.getPreco().doubleValue() <= 0) {
+            throw new IllegalArgumentException("Preço inválido");
+        }
+
         Produto entity = ProdutoMapper.toEntity(produto);
         entity = repository.save(entity);
         return ProdutoMapper.toDTO(entity);

@@ -28,6 +28,14 @@ function Navbar() {
                 Carrinho
             </Link>
 
+            <Link to="/pedidos">
+                Pedidos
+            </Link>
+
+            <Link to="/usuarios">
+                Cadastro
+            </Link>
+
         </div>
     );
 }

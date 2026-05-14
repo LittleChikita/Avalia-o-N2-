@@ -85,6 +85,19 @@ public class PedidoService {
         return PedidoMapper.toDTO(pedidoEntity);
     }
 
+    public PedidoResponseDTO atualizar(Long id, PedidoRequestDTO dto) {
+
+        Pedido pedido = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
+
+        pedido.setMesa(dto.getMesa());
+        pedido.setStatusPedido(PedidoStatus.valueOf(dto.getStatusPedido()));
+
+        repository.save(pedido);
+
+        return PedidoMapper.toDTO(pedido);
+    }
+
     public void deletar(Long id) {
         repository.deleteById(id);
     }

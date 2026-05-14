@@ -20,34 +20,28 @@ public class UsuarioController {
         this.service = service;
     }
 
-    // Criar novo usuário
     @PostMapping
     public ResponseEntity<UsuarioResponseDTO> criar(@RequestBody UsuarioRequestDTO dto) {
         UsuarioResponseDTO criado = service.criarUsuario(dto);
         return ResponseEntity.created(URI.create("/usuarios/" + criado.getId())).body(criado);
     }
 
-
-    // Listar todos
     @GetMapping
     public ResponseEntity<List<UsuarioResponseDTO>> listarTodos() {
         return ResponseEntity.ok(service.listarTodos());
     }
 
-    // Buscar por ID
     @GetMapping("/{id}")
     public ResponseEntity<UsuarioResponseDTO> buscarPorId(@PathVariable Long id) {
-        return ResponseEntity.ok(service.EncontrarPorId(id));
+        return ResponseEntity.ok(service.encontrarPorId(id));
     }
 
-    // Atualizar
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResponseDTO> atualizar(@PathVariable Long id,
                                                         @RequestBody UsuarioRequestDTO dto) {
         return ResponseEntity.ok(service.atualizar(id, dto));
     }
 
-    // Deletar
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         service.deletar(id);

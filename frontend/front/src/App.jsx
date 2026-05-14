@@ -1,5 +1,4 @@
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
@@ -9,68 +8,79 @@ import Pedidos from "./pages/Pedidos.jsx";
 import CadastroUsuario from "./pages/CadastroUsuario.jsx";
 import EditarUsuario from "./pages/EditarUsuario.jsx";
 import Usuarios from "./pages/Usuarios.jsx";
-import {ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
+import AdminRoute from "./routes/AdminRoute";
 
 function App() {
 
     return (
-
         <BrowserRouter>
 
             <Navbar />
-
             <ToastContainer />
-
 
             <Routes>
 
                 <Route
                     path="/"
-                    element={<Home />}
+                    element={
+                        localStorage.getItem("token")
+                            ? <Navigate to="/home" replace />
+                            : <Navigate to="/login" replace />
+                    }
                 />
 
-                <Route
-                    path="/login"
-                    element={<Login />}
-                />
+                <Route path="/login" element={<Login />} />
 
-                <Route
-                    path="/admin"
-                    element={<Admin />}
-                />
 
-                <Route
-                    path="/carrinho"
-                    element={<Carrinho />}
-                />
+                <Route path="/" element={
+                    <ProtectedRoute>
+                        <Home />
+                    </ProtectedRoute>
+                } />
 
-                <Route
-                    path="/pedidos"
-                    element={<Pedidos />}
-                />
+                <Route path="/carrinho" element={
+                    <ProtectedRoute>
+                        <Carrinho />
+                    </ProtectedRoute>
+                } />
 
-                <Route
-                    path="/usuarios"
-                    element={<Usuarios />}
-                />
+                <Route path="/pedidos" element={
+                    <ProtectedRoute>
+                        <Pedidos />
+                    </ProtectedRoute>
+                } />
 
-                <Route
-                    path="/usuarios/cadastro"
-                    element={<CadastroUsuario />}
-                />
+                <Route path="/admin" element={
+                    <AdminRoute>
+                        <Admin />
+                    </AdminRoute>
+                } />
 
-                <Route
-                    path="/usuarios/editar/:id"
-                    element={<EditarUsuario />}
-                />
+                <Route path="/usuarios" element={
+                    <AdminRoute>
+                        <Usuarios />
+                    </AdminRoute>
+                } />
 
+                <Route path="/usuarios/cadastro" element={
+                    <AdminRoute>
+                        <CadastroUsuario />
+                    </AdminRoute>
+                } />
+
+                <Route path="/usuarios/editar/:id" element={
+                    <AdminRoute>
+                        <EditarUsuario />
+                    </AdminRoute>
+                } />
 
             </Routes>
 
         </BrowserRouter>
-
-  );
+    );
 }
 
-
-export default App
+export default App;

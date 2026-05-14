@@ -4,19 +4,31 @@ function Navbar() {
 
     return (
 
-        <nav>
+        <div
+            style={{
+                display: "flex",
+                gap: "20px",
+                marginBottom: "20px"
+            }}
+        >
 
-            <Link to="/">Home</Link>
+            <Link to="/">
+                Home
+            </Link>
 
-            <br />
+            <Link to="/login">
+                Login
+            </Link>
 
-            <Link to="/login">Login</Link>
+            <Link to="/admin">
+                Admin
+            </Link>
 
-            <br />
+            <Link to="/carrinho">
+                Carrinho
+            </Link>
 
-            <Link to="/admin">Admin</Link>
-
-        </nav>
+        </div>
     );
 }
 

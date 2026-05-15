@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Admin from "./pages/Admin";
@@ -11,9 +11,10 @@ import Usuarios from "./pages/Usuarios.jsx";
 import { ToastContainer } from "react-toastify";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
-import AdminRoute from "./routes/AdminRoute";
 
 function App() {
+
+    const token = localStorage.getItem("token");
 
     return (
         <BrowserRouter>
@@ -26,7 +27,7 @@ function App() {
                 <Route
                     path="/"
                     element={
-                        localStorage.getItem("token")
+                        token
                             ? <Navigate to="/home" replace />
                             : <Navigate to="/login" replace />
                     }
@@ -34,8 +35,7 @@ function App() {
 
                 <Route path="/login" element={<Login />} />
 
-
-                <Route path="/" element={
+                <Route path="/home" element={
                     <ProtectedRoute>
                         <Home />
                     </ProtectedRoute>
@@ -54,27 +54,27 @@ function App() {
                 } />
 
                 <Route path="/admin" element={
-                    <AdminRoute>
+                    <ProtectedRoute>
                         <Admin />
-                    </AdminRoute>
+                    </ProtectedRoute>
                 } />
 
                 <Route path="/usuarios" element={
-                    <AdminRoute>
+                    <ProtectedRoute>
                         <Usuarios />
-                    </AdminRoute>
+                    </ProtectedRoute>
                 } />
 
                 <Route path="/usuarios/cadastro" element={
-                    <AdminRoute>
+                    <ProtectedRoute>
                         <CadastroUsuario />
-                    </AdminRoute>
+                    </ProtectedRoute>
                 } />
 
                 <Route path="/usuarios/editar/:id" element={
-                    <AdminRoute>
+                    <ProtectedRoute>
                         <EditarUsuario />
-                    </AdminRoute>
+                    </ProtectedRoute>
                 } />
 
             </Routes>

@@ -7,7 +7,7 @@ function CadastroUsuario() {
     const [nome, setNome] = useState("");
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
-    const [cargo, setCargo] = useState("FUNCIONARIO");
+    const [cargo, setCargo] = useState("USUARIO");
 
     async function salvar() {
         try {
@@ -26,9 +26,9 @@ function CadastroUsuario() {
             setNome("");
             setEmail("");
             setSenha("");
-            setCargo("FUNCIONARIO");
+            setCargo("USUARIO");
 
-        } catch (error) {
+        } catch {
             toast.error("Erro ao cadastrar usuário", {
                 position: "top-right",
                 autoClose: 3000,
@@ -68,7 +68,7 @@ function CadastroUsuario() {
                 value={cargo}
                 onChange={(e) => setCargo(e.target.value)}
             >
-                <option value="FUNCIONARIO">FUNCIONARIO</option>
+                <option value="USUARIO">USUARIO</option>
                 <option value="ADMINISTRADOR">ADMIN</option>
             </select>
 

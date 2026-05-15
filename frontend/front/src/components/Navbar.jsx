@@ -11,34 +11,23 @@ function Navbar() {
     }
 
     const token = localStorage.getItem("token");
-    const role = localStorage.getItem("role");
 
     return (
-        <div style={{ display: "flex", gap: "20px", marginBottom: "20px" }}>
-
-            <Link to="/">Home</Link>
-
-            {!token && <Link to="/login">Login</Link>}
+        <div style={{ display: "flex", gap: "20px" }}>
 
             {token && (
                 <>
+                    <Link to="/home">Home</Link>
                     <Link to="/carrinho">Carrinho</Link>
                     <Link to="/pedidos">Pedidos</Link>
-                </>
-            )}
-
-            {role === "ADMINISTRADOR" && (
-                <>
                     <Link to="/admin">Admin</Link>
                     <Link to="/usuarios">Usuários</Link>
+
+                    <button onClick={logout}>Logout</button>
                 </>
             )}
 
-            {token && (
-                <button onClick={logout}>
-                    Logout
-                </button>
-            )}
+            {!token && <Link to="/login">Login</Link>}
 
         </div>
     );
